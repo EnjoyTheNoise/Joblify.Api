@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joblify.Core.Api", "src\Joblify.Core.Api\Joblify.Core.Api.csproj", "{4754F04A-86D2-4315-9CB2-BBB8876F12D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F04CD2D0-A7F5-4815-BD1E-4C8972E18B64}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F1084759-134C-4188-979D-138218031208}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joblify.Core", "src\Joblify.Core\Joblify.Core.csproj", "{47821C82-2557-4C0F-9DAA-61690517256F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joblify.Core.Data", "src\Joblify.Core.Data\Joblify.Core.Data.csproj", "{983AB7EF-70D3-4930-BD48-DF1D3760DC59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joblify.Search", "src\Joblify.Search\Joblify.Search.csproj", "{1D09318D-070D-4099-B024-34678A635E4F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4754F04A-86D2-4315-9CB2-BBB8876F12D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4754F04A-86D2-4315-9CB2-BBB8876F12D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4754F04A-86D2-4315-9CB2-BBB8876F12D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4754F04A-86D2-4315-9CB2-BBB8876F12D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47821C82-2557-4C0F-9DAA-61690517256F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47821C82-2557-4C0F-9DAA-61690517256F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47821C82-2557-4C0F-9DAA-61690517256F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47821C82-2557-4C0F-9DAA-61690517256F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{983AB7EF-70D3-4930-BD48-DF1D3760DC59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{983AB7EF-70D3-4930-BD48-DF1D3760DC59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{983AB7EF-70D3-4930-BD48-DF1D3760DC59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{983AB7EF-70D3-4930-BD48-DF1D3760DC59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D09318D-070D-4099-B024-34678A635E4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D09318D-070D-4099-B024-34678A635E4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D09318D-070D-4099-B024-34678A635E4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D09318D-070D-4099-B024-34678A635E4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4754F04A-86D2-4315-9CB2-BBB8876F12D0} = {F04CD2D0-A7F5-4815-BD1E-4C8972E18B64}
+		{47821C82-2557-4C0F-9DAA-61690517256F} = {F04CD2D0-A7F5-4815-BD1E-4C8972E18B64}
+		{983AB7EF-70D3-4930-BD48-DF1D3760DC59} = {F04CD2D0-A7F5-4815-BD1E-4C8972E18B64}
+		{1D09318D-070D-4099-B024-34678A635E4F} = {F04CD2D0-A7F5-4815-BD1E-4C8972E18B64}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E92F8AEA-09CE-44B4-AC5F-0513CEC98DD1}
+	EndGlobalSection
+EndGlobal
