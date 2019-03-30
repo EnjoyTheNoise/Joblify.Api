@@ -11,9 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F1084759-1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joblify.Core", "src\Joblify.Core\Joblify.Core.csproj", "{47821C82-2557-4C0F-9DAA-61690517256F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joblify.Core.Data", "src\Joblify.Core.Data\Joblify.Core.Data.csproj", "{983AB7EF-70D3-4930-BD48-DF1D3760DC59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joblify.Core.Data", "src\Joblify.Core.Data\Joblify.Core.Data.csproj", "{983AB7EF-70D3-4930-BD48-DF1D3760DC59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joblify.Search", "src\Joblify.Search\Joblify.Search.csproj", "{1D09318D-070D-4099-B024-34678A635E4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joblify.Search", "src\Joblify.Search\Joblify.Search.csproj", "{1D09318D-070D-4099-B024-34678A635E4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joblify.Core.UnitTests", "test\Joblify.Core.UnitTests\Joblify.Core.UnitTests.csproj", "{B575FD57-5750-4E4D-9DF1-965FAFD9B629}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joblify.Core.Api.UnitTests", "test\Joblify.Core.Api.UnitTests\Joblify.Core.Api.UnitTests.csproj", "{659C8806-3A7A-471A-A870-0B77CB39ED95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +41,14 @@ Global
 		{1D09318D-070D-4099-B024-34678A635E4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D09318D-070D-4099-B024-34678A635E4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D09318D-070D-4099-B024-34678A635E4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B575FD57-5750-4E4D-9DF1-965FAFD9B629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B575FD57-5750-4E4D-9DF1-965FAFD9B629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B575FD57-5750-4E4D-9DF1-965FAFD9B629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B575FD57-5750-4E4D-9DF1-965FAFD9B629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{659C8806-3A7A-471A-A870-0B77CB39ED95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{659C8806-3A7A-471A-A870-0B77CB39ED95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{659C8806-3A7A-471A-A870-0B77CB39ED95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{659C8806-3A7A-471A-A870-0B77CB39ED95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +58,8 @@ Global
 		{47821C82-2557-4C0F-9DAA-61690517256F} = {F04CD2D0-A7F5-4815-BD1E-4C8972E18B64}
 		{983AB7EF-70D3-4930-BD48-DF1D3760DC59} = {F04CD2D0-A7F5-4815-BD1E-4C8972E18B64}
 		{1D09318D-070D-4099-B024-34678A635E4F} = {F04CD2D0-A7F5-4815-BD1E-4C8972E18B64}
+		{B575FD57-5750-4E4D-9DF1-965FAFD9B629} = {F1084759-134C-4188-979D-138218031208}
+		{659C8806-3A7A-471A-A870-0B77CB39ED95} = {F1084759-134C-4188-979D-138218031208}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E92F8AEA-09CE-44B4-AC5F-0513CEC98DD1}
