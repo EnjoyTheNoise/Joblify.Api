@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Joblify.Core.Data\Joblify.Core.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Login\Dto\" />
+  </ItemGroup>
+
 </Project>
