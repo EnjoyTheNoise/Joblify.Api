@@ -13,5 +13,6 @@ namespace Joblify.Core.Data.Context
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<ExternalProvider> ExternalProviders { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<File> Files { get; set; }
     }
 }

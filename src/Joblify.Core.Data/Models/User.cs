@@ -41,8 +41,6 @@ namespace Joblify.Core.Data.Models
 
         public string FieldOfInterest { get; set; }
 
-        public string FilesUrl { get; set; }
-
         [Required]
         [ForeignKey("Role")]
         public byte RoleId { get; set; }
