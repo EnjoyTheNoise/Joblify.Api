@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Joblify.Core.Data.Models
 {
@@ -19,7 +16,7 @@ namespace Joblify.Core.Data.Models
         [ForeignKey("ExternalProvider")]
         public byte ExternalProviderId { get; set; }
 
-        public ExternalProvider ExternalProvider { get; set; }  
+        public ExternalProvider ExternalProvider { get; set; }
 
         [Required]
         public string FirstName { get; set; }
@@ -48,7 +45,5 @@ namespace Joblify.Core.Data.Models
         public Role Role { get; set; }
 
         public bool IsDeleted { get; set; }
-
-
     }
 }

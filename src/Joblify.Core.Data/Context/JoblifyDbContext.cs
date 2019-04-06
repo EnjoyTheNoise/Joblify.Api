@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Joblify.Core.Data.Models;
+﻿using Joblify.Core.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Joblify.Core.Data.Context
