@@ -7,11 +7,11 @@ namespace Joblify.Core.Api.Login
     [Route("api/[controller]")]
     public class LoginController : Controller
     {
-        private readonly LoginService _loginService;
+        private readonly ILoginService _loginService;
 
-        public LoginController()
+        public LoginController(ILoginService loginService)
         {
-            _loginService = new LoginService();
+            _loginService = loginService;
         }
 
         [HttpGet]
