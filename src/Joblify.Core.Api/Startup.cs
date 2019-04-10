@@ -28,6 +28,8 @@ namespace Joblify.Core.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
+
             app.UseMvc();
         }
     }
