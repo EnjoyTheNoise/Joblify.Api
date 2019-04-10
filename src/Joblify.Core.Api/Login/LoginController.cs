@@ -14,7 +14,7 @@ namespace Joblify.Core.Api.Login
             _loginService = loginService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Login([FromBody] LoginDto loginDto)
         {
             if (!ModelState.IsValid)
@@ -22,7 +22,13 @@ namespace Joblify.Core.Api.Login
                 return BadRequest();
             }
 
-            return Ok();
+            var exists = _loginService.CheckIfUserExists(loginDto);
+            if (exists)
+            {
+                return Ok();
+            }
+            _loginService.RegisterUser(loginDto);
+            return Created("", loginDto);
         }
     }
 }

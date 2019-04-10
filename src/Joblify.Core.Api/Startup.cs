@@ -1,4 +1,7 @@
-﻿using Joblify.Core.Login;
+﻿using AutoMapper;
+using Joblify.Core.Data.Context;
+using Joblify.Core.Data.UnitOfWork;
+using Joblify.Core.Login;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +21,10 @@ namespace Joblify.Core.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
             services.AddMvc();
+            services.AddScoped(provider => new JoblifyDbContext());
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ILoginService, LoginService>();
         }
 

@@ -7,7 +7,7 @@ namespace Joblify.Core.Login
 {
     public interface ILoginService
     {
-        void CheckIfUserExists(LoginDto loginDto);
+        bool CheckIfUserExists(LoginDto loginDto);
         void RegisterUser(LoginDto loginDto);
     }
 }
