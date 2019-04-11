@@ -35,6 +35,11 @@ namespace Joblify.Core.Login
         public void RegisterUser(LoginDto loginDto)
         {
             var userEntity = _mapper.Map<LoginDto, User>(loginDto);
+            var role = _unitOfWork.RoleRepository.Entities.FirstOrDefault(r => r.Name == loginDto.RoleName);
+            var externalProvider = _unitOfWork.ExternalProvideRepository.Entities.FirstOrDefault(e => e.Name == loginDto.ExternalProviderName);
+
+            userEntity.Role = role;
+            userEntity.ExternalProvider = externalProvider;
             _unitOfWork.UserRepository.Add(userEntity);
             _unitOfWork.Commit();
         }
