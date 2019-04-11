@@ -29,5 +29,10 @@ namespace Joblify.Core.Data.Repository
         {
             DbSet.Add(entity);
         }
+
+        public async Task AddAsync(T entity)
+        {
+            await DbSet.AddAsync(entity);
+        }
     }
 }

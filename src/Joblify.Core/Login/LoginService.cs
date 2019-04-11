@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Joblify.Core.Data.Models;
 using Joblify.Core.Data.UnitOfWork;
 using Joblify.Core.Login.Dto;
+using Microsoft.EntityFrameworkCore;
 
 namespace Joblify.Core.Login
 {
@@ -20,10 +22,10 @@ namespace Joblify.Core.Login
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public bool CheckIfUserExists(LoginDto loginDto)
+        public async Task<bool> CheckIfUserExists(LoginDto loginDto)
         {
-            var user = _unitOfWork.UserRepository.Entities
-                .FirstOrDefault(u => u.Email == loginDto.Email || u.ExternalProviderToken == loginDto.ExternalProviderToken);
+            var user = await _unitOfWork.UserRepository.Entities
+                .FirstOrDefaultAsync(u => u.Email == loginDto.Email || u.ExternalProviderToken == loginDto.ExternalProviderToken);
             if (user is null)
             {
                 return false;
@@ -32,15 +34,16 @@ namespace Joblify.Core.Login
             return true;
         }
 
-        public void RegisterUser(LoginDto loginDto)
+        public async Task RegisterUser(LoginDto loginDto)
         {
             var userEntity = _mapper.Map<LoginDto, User>(loginDto);
-            var role = _unitOfWork.RoleRepository.Entities.FirstOrDefault(r => r.Name == loginDto.RoleName);
-            var externalProvider = _unitOfWork.ExternalProvideRepository.Entities.FirstOrDefault(e => e.Name == loginDto.ExternalProviderName);
+            var role = await _unitOfWork.RoleRepository.Entities.FirstOrDefaultAsync(r => r.Name == loginDto.RoleName);
+            var externalProvider = await _unitOfWork.ExternalProvideRepository.Entities.FirstOrDefaultAsync(e => e.Name == loginDto.ExternalProviderName);
 
             userEntity.Role = role;
             userEntity.ExternalProvider = externalProvider;
-            _unitOfWork.UserRepository.Add(userEntity);
+
+            await _unitOfWork.UserRepository.AddAsync(userEntity);
             _unitOfWork.Commit();
         }
     }

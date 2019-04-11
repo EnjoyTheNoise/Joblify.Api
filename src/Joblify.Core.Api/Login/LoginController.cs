@@ -1,4 +1,5 @@
-﻿using Joblify.Core.Login;
+﻿using System.Threading.Tasks;
+using Joblify.Core.Login;
 using Joblify.Core.Login.Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,19 +16,19 @@ namespace Joblify.Core.Api.Login
         }
 
         [HttpPost]
-        public IActionResult Login([FromBody] LoginDto loginDto)
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var exists = _loginService.CheckIfUserExists(loginDto);
+            var exists = await _loginService.CheckIfUserExists(loginDto);
             if (exists)
             {
                 return Ok();
             }
-            _loginService.RegisterUser(loginDto);
+            await _loginService.RegisterUser(loginDto);
             return Created("", loginDto);
         }
     }

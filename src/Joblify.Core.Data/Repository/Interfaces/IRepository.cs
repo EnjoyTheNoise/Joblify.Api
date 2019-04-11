@@ -11,5 +11,6 @@ namespace Joblify.Core.Data.Repository.Interfaces
         IQueryable<T> Entities { get; }
         void Remove(T entity);
         void Add(T entity);
+        Task AddAsync(T entity);
     }
 }
