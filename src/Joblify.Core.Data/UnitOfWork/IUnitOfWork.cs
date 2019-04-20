@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Joblify.Core.Data.Context;
 using Joblify.Core.Data.Models;
 using Joblify.Core.Data.Repository;
@@ -17,6 +18,7 @@ namespace Joblify.Core.Data.UnitOfWork
         IRepository<ExternalProvider> ExternalProviderRepository { get; }
 
         void Commit();
+        Task CommitAsync();
         void RejectChanges();
         void Dispose();
     }

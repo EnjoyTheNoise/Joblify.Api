@@ -23,8 +23,20 @@ namespace Joblify.Core.Api.Login
             {
                 return Ok();
             }
-            await _loginService.RegisterUser(loginDto);
-            return Created("", loginDto);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _loginService.RegisterUser(loginDto);
+
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Created("", result);
         }
     }
 }
