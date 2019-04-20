@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Joblify.Core.Data.Models;
 using Joblify.Core.Login.Dto;
 
-namespace Joblify.Core.Api
+namespace Joblify.Core.Api.Infrastructure
 {
     public class AutoMapperProfile: Profile
     {
