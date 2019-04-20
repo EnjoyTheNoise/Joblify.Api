@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Joblify.Core.Data.Context;
 using Joblify.Core.Data.Models;
@@ -33,6 +34,11 @@ namespace Joblify.Core.Data.UnitOfWork
         public void Commit()
         {
             _dbContext.SaveChanges();
+        }
+
+        public async Task CommitAsync()
+        {
+            await _dbContext.SaveChangesAsync();
         }
 
         public void Dispose()
