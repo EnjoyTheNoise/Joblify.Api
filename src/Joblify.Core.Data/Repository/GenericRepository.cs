@@ -30,6 +30,12 @@ namespace Joblify.Core.Data.Repository
             DbSet.Add(entity);
         }
 
+        public void Update(T entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            DbSet.Attach(entity);
+        }
+
         public async Task AddAsync(T entity)
         {
             await DbSet.AddAsync(entity);
