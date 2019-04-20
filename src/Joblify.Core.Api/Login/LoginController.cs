@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Joblify.Core.Api.Infrastructure.ActionFilterAttributes;
 using Joblify.Core.Login;
 using Joblify.Core.Login.Dto;
 using Microsoft.AspNetCore.Mvc;
@@ -16,17 +17,13 @@ namespace Joblify.Core.Api.Login
         }
 
         [HttpPost]
+        [ValidateModel]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
             var exists = await _loginService.CheckIfUserExists(loginDto);
             if (exists)
             {
                 return Ok();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
             }
 
             var result = await _loginService.RegisterUser(loginDto);
