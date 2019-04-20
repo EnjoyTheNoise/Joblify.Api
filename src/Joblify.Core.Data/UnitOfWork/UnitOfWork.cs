@@ -17,7 +17,7 @@ namespace Joblify.Core.Data.UnitOfWork
         public IRepository<User> UserRepository => new GenericRepository<User>(_dbContext);
         public IRepository<File> FileRepository => new GenericRepository<File>(_dbContext);
         public IRepository<Role> RoleRepository => new GenericRepository<Role>(_dbContext);
-        public IRepository<ExternalProvider> ExternalProvideRepository => new GenericRepository<ExternalProvider>(_dbContext);
+        public IRepository<ExternalProvider> ExternalProviderRepository => new GenericRepository<ExternalProvider>(_dbContext);
 
         public UnitOfWork(JoblifyDbContext dbContext)
         {

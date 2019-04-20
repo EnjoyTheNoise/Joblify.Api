@@ -38,7 +38,7 @@ namespace Joblify.Core.Login
         {
             var userEntity = _mapper.Map<LoginDto, User>(loginDto);
             var role = await _unitOfWork.RoleRepository.Entities.FirstOrDefaultAsync(r => r.Name == loginDto.RoleName);
-            var externalProvider = await _unitOfWork.ExternalProvideRepository.Entities.FirstOrDefaultAsync(e => e.Name == loginDto.ExternalProviderName);
+            var externalProvider = await _unitOfWork.ExternalProviderRepository.Entities.FirstOrDefaultAsync(e => e.Name == loginDto.ExternalProviderName);
 
             userEntity.Role = role;
             userEntity.ExternalProvider = externalProvider;

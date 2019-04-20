@@ -14,7 +14,7 @@ namespace Joblify.Core.Data.UnitOfWork
         IRepository<User> UserRepository { get; }
         IRepository<File> FileRepository{ get; }
         IRepository<Role> RoleRepository { get; }
-        IRepository<ExternalProvider> ExternalProvideRepository { get; }
+        IRepository<ExternalProvider> ExternalProviderRepository { get; }
 
         void Commit();
         void RejectChanges();
