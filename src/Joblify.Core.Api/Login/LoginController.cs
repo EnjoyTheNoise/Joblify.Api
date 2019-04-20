@@ -18,11 +18,6 @@ namespace Joblify.Core.Api.Login
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
             var exists = await _loginService.CheckIfUserExists(loginDto);
             if (exists)
             {
