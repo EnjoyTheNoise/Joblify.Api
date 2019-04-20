@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Joblify.Core.Api.Login
 {
-    [Route("api/[controller]")]
+    [Route("api/login")]
     public class LoginController : Controller
     {
         private readonly ILoginService _loginService;
