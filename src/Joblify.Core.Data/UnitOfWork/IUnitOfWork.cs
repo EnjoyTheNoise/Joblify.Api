@@ -13,6 +13,10 @@ namespace Joblify.Core.Data.UnitOfWork
     public interface IUnitOfWork
     {
         IRepository<User> UserRepository { get; }
+        IRepository<Offer> OfferRepository { get; }
+        IRepository<Category> CategoryRepository { get; }
+        IRepository<Trade> TradeRepository { get; }
+
         IRepository<File> FileRepository{ get; }
         IRepository<Role> RoleRepository { get; }
         IRepository<ExternalProvider> ExternalProviderRepository { get; }

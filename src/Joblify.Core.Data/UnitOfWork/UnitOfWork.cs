@@ -17,11 +17,17 @@ namespace Joblify.Core.Data.UnitOfWork
         private readonly JoblifyDbContext _dbContext;
 
         private IRepository<User> _userRepository;
+        private IRepository<Offer> _offerRepository;
+        private IRepository<Category> _categoryRepository;
+        private IRepository<Trade> _tradeRepository;
         private IRepository<File> _fileRepository;
         private IRepository<Role> _roleRepository;
         private IRepository<ExternalProvider> _externalProviderRepository;
 
         public IRepository<User> UserRepository => _userRepository ?? (_userRepository = new GenericRepository<User>(_dbContext));
+        public IRepository<Offer> OfferRepository => _offerRepository ?? (_offerRepository = new GenericRepository<Offer>(_dbContext));
+        public IRepository<Category> CategoryRepository => _categoryRepository ?? (_categoryRepository = new GenericRepository<Category>(_dbContext));
+        public IRepository<Trade> TradeRepository => _tradeRepository ?? (_tradeRepository = new GenericRepository<Trade>(_dbContext));
         public IRepository<File> FileRepository => _fileRepository ?? (_fileRepository = new GenericRepository<File>(_dbContext));
         public IRepository<Role> RoleRepository => _roleRepository ?? (_roleRepository = new GenericRepository<Role>(_dbContext));
         public IRepository<ExternalProvider> ExternalProviderRepository => _externalProviderRepository ?? (_externalProviderRepository = new GenericRepository<ExternalProvider>(_dbContext));
