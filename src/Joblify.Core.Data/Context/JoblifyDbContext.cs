@@ -5,6 +5,10 @@ namespace Joblify.Core.Data.Context
 {
     public class JoblifyDbContext : DbContext
     {
+        public JoblifyDbContext()
+        {
+        }
+
         public JoblifyDbContext(DbContextOptions<JoblifyDbContext> options) : base(options) { }
 
         public virtual DbSet<User> Users { get; set; }

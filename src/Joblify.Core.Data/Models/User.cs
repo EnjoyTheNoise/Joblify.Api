@@ -14,7 +14,7 @@ namespace Joblify.Core.Data.Models
 
         [Required]
         [ForeignKey("ExternalProvider")]
-        public byte ExternalProviderId { get; set; }
+        public int ExternalProviderId { get; set; }
 
         public ExternalProvider ExternalProvider { get; set; }
 
@@ -34,13 +34,13 @@ namespace Joblify.Core.Data.Models
 
         public string Description { get; set; }
 
-        public string Experiance { get; set; }
+        public string Experience { get; set; }
 
         public string FieldOfInterest { get; set; }
 
         [Required]
         [ForeignKey("Role")]
-        public byte RoleId { get; set; }
+        public int RoleId { get; set; }
 
         public Role Role { get; set; }
 
