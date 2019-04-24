@@ -1,0 +1,25 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Joblify.Core.Offers
+{
+    public class OfferDto
+    {
+        [Required]
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public double Price { get; set; }
+
+        [Required]
+        public int CategoryId { get; set; }
+
+        [Required]
+        public int TradeId { get; set; }
+
+        public string AvailableTime { get; set; }
+
+        [Required]
+        public int UserId { get; set;}
+    }
+}

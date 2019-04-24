@@ -2,6 +2,7 @@
 using Joblify.Core.Data.Context;
 using Joblify.Core.Data.UnitOfWork;
 using Joblify.Core.Login;
+using Joblify.Core.Offers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,7 @@ namespace Joblify.Core.Api
             services.AddMvc();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ILoginService, LoginService>();
+            services.AddTransient<IOfferService, OfferService>();
             services.AddDbContext<JoblifyDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }

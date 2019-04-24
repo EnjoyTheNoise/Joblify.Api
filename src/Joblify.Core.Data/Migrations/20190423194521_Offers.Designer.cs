@@ -4,14 +4,16 @@ using Joblify.Core.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Joblify.Core.Data.Migrations
 {
     [DbContext(typeof(JoblifyDbContext))]
-    partial class JoblifyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190423194521_Offers")]
+    partial class Offers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
