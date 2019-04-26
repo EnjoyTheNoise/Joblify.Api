@@ -29,7 +29,7 @@ namespace Joblify.Core.Api
             services.AddTransient<ILoginService, LoginService>();
             services.AddTransient<IOfferService, OfferService>();
             services.AddDbContext<JoblifyDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("AzureDb")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
