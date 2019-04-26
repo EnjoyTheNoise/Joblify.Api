@@ -16,17 +16,19 @@ namespace Joblify.Core.Api.Login
             _loginService = loginService;
         }
 
-        [HttpPost]
-        [ValidateModel]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        [HttpGet("{email}")]
+        public async Task<IActionResult> CheckIfEmailExists(string email)
         {
-            var exists = await _loginService.CheckIfUserExists(loginDto);
-            if (exists)
-            {
-                return Ok();
-            }
+            var result = await _loginService.CheckIfUserExists(email);
 
-            var result = await _loginService.RegisterUser(loginDto);
+            return Ok(result);
+        }
+
+        [HttpPost("register")]
+        [ValidateModel]
+        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
+        {
+            var result = await _loginService.RegisterUser(dto);
 
             if (result == null)
             {
