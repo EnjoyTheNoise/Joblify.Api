@@ -10,9 +10,6 @@ namespace Joblify.Core.Data.Models
         public int Id { get; set; }
 
         [Required]
-        public string ExternalProviderToken { get; set; }
-
-        [Required]
         [ForeignKey("ExternalProvider")]
         public int ExternalProviderId { get; set; }
 
