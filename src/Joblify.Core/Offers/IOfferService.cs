@@ -7,7 +7,7 @@ namespace Joblify.Core.Offers
 {
     public interface IOfferService
     {
-        Task<OfferDto> AddOfferAsync(OfferDto osfferDto);
+        Task<OfferDto> AddOfferAsync(OfferDto offerDto);
         Task<IEnumerable<GetAllCategoriesDto>> GetAllCategories();
         Task<IEnumerable<GetAllTradesDto>> GetAllTrades();
     }
