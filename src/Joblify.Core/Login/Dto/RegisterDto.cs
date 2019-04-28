@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Joblify.Core.Login.Dto
 {
-    public class LoginDto
+    public class RegisterDto
     {
-        [Required]
-        public string ExternalProviderToken { get; set; }
-
         [Required]
         public string ExternalProviderName { get; set; }
 
