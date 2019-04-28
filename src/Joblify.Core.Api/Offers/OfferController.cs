@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Joblify.Core.Api.Infrastructure.ActionFilterAttributes;
 using Joblify.Core.Offers;
+using Joblify.Core.Offers.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Joblify.Core.Offers
+namespace Joblify.Core.Offers.Dto
 {
     public class OfferDto
     {
