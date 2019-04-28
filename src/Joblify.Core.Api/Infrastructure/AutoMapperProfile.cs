@@ -2,6 +2,7 @@
 using Joblify.Core.Data.Models;
 using Joblify.Core.Login.Dto;
 using Joblify.Core.Offers;
+using Joblify.Core.Offers.Dto;
 
 
 namespace Joblify.Core.Api.Infrastructure
@@ -13,6 +14,8 @@ namespace Joblify.Core.Api.Infrastructure
             CreateMap<User, RegisterDto>();
             CreateMap<RegisterDto, User>();
             CreateMap<Offer, OfferDto>();
+            CreateMap<Category, GetAllCategoriesDto>();
+            CreateMap<Trade, GetAllTradesDto>();
         }
     }
 }

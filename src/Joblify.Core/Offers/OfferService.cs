@@ -1,7 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Joblify.Core.Data.Models;
 using Joblify.Core.Data.UnitOfWork;
 using System.Threading.Tasks;
+using Joblify.Core.Offers.Dto;
+using Microsoft.EntityFrameworkCore;
 
 namespace Joblify.Core.Offers
 {
@@ -26,6 +30,20 @@ namespace Joblify.Core.Offers
             var created = _mapper.Map<OfferDto>(offer);
 
             return created;
+        }
+
+        public async Task<IEnumerable<GetAllCategoriesDto>> GetAllCategories()
+        {
+            var categories = await _unitOfWork.CategoryRepository.Entities.ToListAsync();
+            var getAllCategoriesDtos = _mapper.Map<List<Category>, List<GetAllCategoriesDto>>(categories);
+            return getAllCategoriesDtos;
+        }
+
+        public async Task<IEnumerable<GetAllTradesDto>> GetAllTrades()
+        {
+            var trades = await _unitOfWork.TradeRepository.Entities.ToListAsync();
+            var getAllTradesDtos = _mapper.Map<List<Trade>, List<GetAllTradesDto>>(trades);
+            return getAllTradesDtos;
         }
     }
 }

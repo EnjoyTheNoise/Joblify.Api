@@ -28,5 +28,31 @@ namespace Joblify.Core.Api.Offers
             }
             return Created("", result);
         }
+
+        [HttpGet("getAllCategories")]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            var response = await _offerService.GetAllCategories();
+
+            if (response == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet("getAllTrades")]
+        public async Task<IActionResult> GetAllTrades()
+        {
+            var response = await _offerService.GetAllTrades();
+
+            if (response == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(response);
+        }
     }
 }
