@@ -23,7 +23,6 @@ namespace Joblify.Core.Offers
         public async Task<OfferDto> AddOfferAsync(OfferDto offerDto)
         {
             var offer = _mapper.Map<Offer>(offerDto);
-
             await _unitOfWork.OfferRepository.AddAsync(offer);
             await _unitOfWork.CommitAsync();
 

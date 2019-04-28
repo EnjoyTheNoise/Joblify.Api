@@ -9,7 +9,7 @@ namespace Joblify.Core.Offers
 
         public string Description { get; set; }
 
-        public double Price { get; set; }
+        public float Price { get; set; }
 
         [Required]
         public int CategoryId { get; set; }
