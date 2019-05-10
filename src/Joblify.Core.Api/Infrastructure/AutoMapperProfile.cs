@@ -10,8 +10,8 @@ namespace Joblify.Core.Api.Infrastructure
     {
         public AutoMapperProfile()
         {
-            CreateMap<User, RegisterDto>();
-            CreateMap<RegisterDto, User>();
+            CreateMap<Data.Models.User, RegisterDto>();
+            CreateMap<RegisterDto, Data.Models.User>();
             CreateMap<Offer, OfferDto>();
         }
     }

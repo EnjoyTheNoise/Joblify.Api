@@ -26,7 +26,7 @@ namespace Joblify.Core.Login
 
         public async Task<RegisterDto> RegisterUser(RegisterDto loginDto)
         {
-            var userEntity = _mapper.Map<RegisterDto, User>(loginDto);
+            var userEntity = _mapper.Map<RegisterDto, Data.Models.User>(loginDto);
 
             var role = await _unitOfWork.RoleRepository.Entities.SingleAsync(r => r.Name == loginDto.RoleName);
             if (role == null)
@@ -46,7 +46,7 @@ namespace Joblify.Core.Login
             await _unitOfWork.UserRepository.AddAsync(userEntity);
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<User, RegisterDto>(userEntity);
+            return _mapper.Map<Data.Models.User, RegisterDto>(userEntity);
         }
     }
 }
