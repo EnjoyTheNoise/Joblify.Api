@@ -24,17 +24,17 @@ namespace Joblify.Core.Login
             return userExists;
         }
 
-        public async Task<RegisterDto> RegisterUser(RegisterDto loginDto)
+        public async Task<EditProfileDto> SaveProfile(EditProfileDto editProfileDto)
         {
-            var userEntity = _mapper.Map<RegisterDto, Data.Models.User>(loginDto);
+            var userEntity = _mapper.Map<EditProfileDto, User>(editProfileDto);
 
-            var role = await _unitOfWork.RoleRepository.Entities.SingleAsync(r => r.Name == loginDto.RoleName);
+            var role = await _unitOfWork.RoleRepository.Entities.SingleAsync(r => r.Name == editProfileDto.RoleName);
             if (role == null)
             {
                 return null;
             }
 
-            var externalProvider = await _unitOfWork.ExternalProviderRepository.Entities.SingleAsync(e => e.Name == loginDto.ExternalProviderName);
+            var externalProvider = await _unitOfWork.ExternalProviderRepository.Entities.SingleAsync(e => e.Name == editProfileDto.ExternalProviderName);
             if (externalProvider == null)
             {
                 return null;
@@ -46,7 +46,7 @@ namespace Joblify.Core.Login
             await _unitOfWork.UserRepository.AddAsync(userEntity);
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<Data.Models.User, RegisterDto>(userEntity);
+            return _mapper.Map<User, EditProfileDto>(userEntity);
         }
     }
 }

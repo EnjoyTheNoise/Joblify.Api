@@ -24,9 +24,9 @@ namespace Joblify.Core.Api.Login
             return Ok(result);
         }
 
-        [HttpPost("register")]
+        [HttpPost("saveProfile")]
         [ValidateModel]
-        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
+        public async Task<IActionResult> SaveProfile([FromBody] EditProfileDto dto)
         {
             var result = await _loginService.RegisterUser(dto);
 

@@ -6,6 +6,6 @@ namespace Joblify.Core.Login
     public interface ILoginService
     {
         Task<bool> CheckIfUserExists(string email);
-        Task<RegisterDto> RegisterUser(RegisterDto loginDto);
+        Task<RegisterDto> SaveProfile(EditProfileDto editProfileDto);
     }
 }
