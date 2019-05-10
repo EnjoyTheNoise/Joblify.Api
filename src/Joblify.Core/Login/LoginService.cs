@@ -1,13 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Joblify.Core.Data.Models;
 using Joblify.Core.Data.UnitOfWork;
 using Joblify.Core.Login.Dto;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Joblify.Core.Login
 {
-    public class LoginService: ILoginService
+    public class LoginService : ILoginService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -25,6 +27,23 @@ namespace Joblify.Core.Login
         }
 
         public async Task<EditProfileDto> SaveProfile(EditProfileDto editProfileDto)
+        {
+            var user = _unitOfWork.UserRepository.Entities.SingleOrDefault(u => u.Email == editProfileDto.Email);
+
+            if (user == null)
+                return await RegisterUser(editProfileDto);
+
+            return await EditProfile(editProfileDto, user);
+        }
+
+        private async Task<EditProfileDto> EditProfile(EditProfileDto editProfileDto, User user)
+        {
+            user = _mapper.Map(editProfileDto, user);
+            await _unitOfWork.CommitAsync();
+            return _mapper.Map<User, EditProfileDto>(user);
+        }
+
+        private async Task<EditProfileDto> RegisterUser(EditProfileDto editProfileDto)
         {
             var userEntity = _mapper.Map<EditProfileDto, User>(editProfileDto);
 
