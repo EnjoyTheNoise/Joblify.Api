@@ -2,20 +2,18 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Joblify.Core.Data.Models;
 using Joblify.Core.Data.UnitOfWork;
-using Joblify.Core.Login.Dto;
+using Joblify.Core.User.Dto;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
-namespace Joblify.Core.Login
+namespace Joblify.Core.User
 {
-    public class LoginService : ILoginService
+    public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public LoginService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -37,14 +35,14 @@ namespace Joblify.Core.Login
             return await EditProfile(editProfileDto, user);
         }
 
-        public async Task<User> GetUser(string email)
+        public async Task<Data.Models.User> GetUser(string email)
         {
             var user = await _unitOfWork.UserRepository.Entities.SingleOrDefaultAsync(u => u.Email == email);
 
             return user;
         }
 
-        public async Task DeleteUser(User user)
+        public async Task DeleteUser(Data.Models.User user)
         {
             user.IsDeleted = true;
             try
@@ -58,16 +56,16 @@ namespace Joblify.Core.Login
             }
         }
 
-        private async Task<EditProfileDto> EditProfile(EditProfileDto editProfileDto, User user)
+        private async Task<EditProfileDto> EditProfile(EditProfileDto editProfileDto, Data.Models.User user)
         {
             user = _mapper.Map(editProfileDto, user);
             await _unitOfWork.CommitAsync();
-            return _mapper.Map<User, EditProfileDto>(user);
+            return _mapper.Map<Data.Models.User, EditProfileDto>(user);
         }
 
         private async Task<EditProfileDto> RegisterUser(EditProfileDto editProfileDto)
         {
-            var userEntity = _mapper.Map<EditProfileDto, User>(editProfileDto);
+            var userEntity = _mapper.Map<EditProfileDto, Data.Models.User>(editProfileDto);
 
             var role = await _unitOfWork.RoleRepository.Entities.SingleAsync(r => r.Name == editProfileDto.RoleName);
             if (role == null)
@@ -87,7 +85,7 @@ namespace Joblify.Core.Login
             await _unitOfWork.UserRepository.AddAsync(userEntity);
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<User, EditProfileDto>(userEntity);
+            return _mapper.Map<Data.Models.User, EditProfileDto>(userEntity);
         }
 
     }

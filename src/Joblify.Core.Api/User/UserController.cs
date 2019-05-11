@@ -1,17 +1,17 @@
 ﻿using System.Threading.Tasks;
 using Joblify.Core.Api.Infrastructure.ActionFilterAttributes;
-using Joblify.Core.Login;
-using Joblify.Core.Login.Dto;
+using Joblify.Core.User;
+using Joblify.Core.User.Dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Joblify.Core.Api.Login
+namespace Joblify.Core.Api.User
 {
     [Route("api/login")]
-    public class LoginController : Controller
+    public class UserController : Controller
     {
-        private readonly ILoginService _loginService;
+        private readonly IUserService _loginService;
 
-        public LoginController(ILoginService loginService)
+        public UserController(IUserService loginService)
         {
             _loginService = loginService;
         }
