@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Joblify.Core.Data.Models;
 
 namespace Joblify.Core.Login.Dto
 {

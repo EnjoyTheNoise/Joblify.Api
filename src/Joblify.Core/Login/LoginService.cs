@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Joblify.Core.Data.Models;
@@ -36,6 +37,27 @@ namespace Joblify.Core.Login
             return await EditProfile(editProfileDto, user);
         }
 
+        public async Task<User> GetUser(string email)
+        {
+            var user = await _unitOfWork.UserRepository.Entities.SingleOrDefaultAsync(u => u.Email == email);
+
+            return user;
+        }
+
+        public async Task DeleteUser(User user)
+        {
+            user.IsDeleted = true;
+            try
+            {
+                await _unitOfWork.CommitAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e + "\nDeleting failed on save");
+                throw;
+            }
+        }
+
         private async Task<EditProfileDto> EditProfile(EditProfileDto editProfileDto, User user)
         {
             user = _mapper.Map(editProfileDto, user);
@@ -67,5 +89,6 @@ namespace Joblify.Core.Login
 
             return _mapper.Map<User, EditProfileDto>(userEntity);
         }
+
     }
 }

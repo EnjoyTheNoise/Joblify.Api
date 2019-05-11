@@ -37,5 +37,19 @@ namespace Joblify.Core.Api.Login
 
             return Created("", result);
         }
+
+        [HttpDelete("deleteProfile")]
+        public async Task<IActionResult> DeleteUser(string email)
+        {
+            var userFromRepo = await _loginService.GetUser(email);
+            if (userFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            await _loginService.DeleteUser(userFromRepo);
+
+            return NoContent();
+        }
     }
 }
