@@ -6,20 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Joblify.Core.Api.User
 {
-    [Route("api/login")]
+    [Route("api/user")]
     public class UserController : Controller
     {
-        private readonly IUserService _loginService;
+        private readonly IUserService _userService;
 
         public UserController(IUserService loginService)
         {
-            _loginService = loginService;
+            _userService = loginService;
         }
 
         [HttpGet("{email}")]
         public async Task<IActionResult> CheckIfEmailExists(string email)
         {
-            var result = await _loginService.CheckIfUserExists(email);
+            var result = await _userService.CheckIfUserExists(email);
 
             return Ok(result);
         }
@@ -28,7 +28,7 @@ namespace Joblify.Core.Api.User
         [ValidateModel]
         public async Task<IActionResult> SaveProfile([FromBody] EditProfileDto dto)
         {
-            var result = await _loginService.SaveProfile(dto);
+            var result = await _userService.SaveProfile(dto);
 
             if (result == null)
             {
@@ -41,13 +41,13 @@ namespace Joblify.Core.Api.User
         [HttpDelete("deleteProfile")]
         public async Task<IActionResult> DeleteUser(string email)
         {
-            var userFromRepo = await _loginService.GetUser(email);
+            var userFromRepo = await _userService.GetUser(email);
             if (userFromRepo == null)
             {
                 return NotFound();
             }
 
-            await _loginService.DeleteUser(userFromRepo);
+            await _userService.DeleteUser(userFromRepo);
 
             return NoContent();
         }
