@@ -16,19 +16,23 @@ namespace Joblify.Core.Api.User
             _userService = loginService;
         }
 
-        [HttpGet("{email}")]
-        public async Task<IActionResult> CheckIfEmailExists(string email)
+        [HttpGet]
+        public async Task<IActionResult> GetUser(string email)
         {
-            var result = await _userService.CheckIfUserExists(email);
+            var result = await _userService.GetUser(email);
+            if (result == null)
+            {
+                return NotFound();
+            }
 
             return Ok(result);
         }
 
-        [HttpPost("saveProfile")]
+        [HttpPost]
         [ValidateModel]
-        public async Task<IActionResult> SaveProfile([FromBody] EditProfileDto dto)
+        public async Task<IActionResult> CreateProfile([FromBody] AddUserDto dto)
         {
-            var result = await _userService.SaveProfile(dto);
+            var result = await _userService.CreateUser(dto);
 
             if (result == null)
             {
@@ -38,17 +42,35 @@ namespace Joblify.Core.Api.User
             return Created("", result);
         }
 
-        [HttpDelete("deleteProfile")]
+        [HttpPut]
+        [ValidateModel]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto dto)
+        {
+            var result = await _userService.UpdateUser(dto);
+
+            if (result == null)
+            {
+                return BadRequest();
+            }
+
+            return Created("", result);
+        }
+
+        [HttpDelete]
         public async Task<IActionResult> DeleteUser(string email)
         {
-            var userFromRepo = await _userService.GetUser(email);
-            if (userFromRepo == null)
+            var userEntityForDelete = await _userService.GetUser(email);
+            if (userEntityForDelete == null)
             {
                 return NotFound();
             }
 
-            await _userService.DeleteUser(userFromRepo);
+            if (userEntityForDelete.IsDeleted)
+            {
+                return NotFound();
+            }
 
+            await _userService.DeleteUser(userEntityForDelete);
             return NoContent();
         }
     }

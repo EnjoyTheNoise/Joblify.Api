@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Joblify.Core.User.Dto
 {
-    public class EditProfileDto
+    public class AddUserDto
     {
         [Required]
         public string ExternalProviderName { get; set; }

@@ -5,9 +5,9 @@ namespace Joblify.Core.User
 {
     public interface IUserService
     {
-        Task<bool> CheckIfUserExists(string email);
-        Task<EditProfileDto> SaveProfile(EditProfileDto editProfileDto);
         Task<Data.Models.User> GetUser(string email);
+        Task<AddUserDto> CreateUser(AddUserDto editProfileDto);
+        Task<AddUserDto> UpdateUser(UpdateUserDto editProfileDto);
         Task DeleteUser(Data.Models.User user);
     }
 }

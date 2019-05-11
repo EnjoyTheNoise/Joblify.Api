@@ -19,74 +19,53 @@ namespace Joblify.Core.User
             _mapper = mapper;
         }
 
-        public async Task<bool> CheckIfUserExists(string email)
+        public async Task<AddUserDto> CreateUser(AddUserDto userDto)
         {
-            var userExists = await _unitOfWork.UserRepository.Entities.AnyAsync(u => u.Email == email);
-            return userExists;
-        }
-
-        public async Task<EditProfileDto> SaveProfile(EditProfileDto editProfileDto)
-        {
-            var user = _unitOfWork.UserRepository.Entities.SingleOrDefault(u => u.Email == editProfileDto.Email);
-
-            if (user == null)
-                return await RegisterUser(editProfileDto);
-
-            return await EditProfile(editProfileDto, user);
-        }
-
-        public async Task<Data.Models.User> GetUser(string email)
-        {
-            var user = await _unitOfWork.UserRepository.Entities.SingleOrDefaultAsync(u => u.Email == email);
-
-            return user;
-        }
-
-        public async Task DeleteUser(Data.Models.User user)
-        {
-            user.IsDeleted = true;
-            try
-            {
-                await _unitOfWork.CommitAsync();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e + "\nDeleting failed on save");
-                throw;
-            }
-        }
-
-        private async Task<EditProfileDto> EditProfile(EditProfileDto editProfileDto, Data.Models.User user)
-        {
-            user = _mapper.Map(editProfileDto, user);
-            await _unitOfWork.CommitAsync();
-            return _mapper.Map<Data.Models.User, EditProfileDto>(user);
-        }
-
-        private async Task<EditProfileDto> RegisterUser(EditProfileDto editProfileDto)
-        {
-            var userEntity = _mapper.Map<EditProfileDto, Data.Models.User>(editProfileDto);
-
-            var role = await _unitOfWork.RoleRepository.Entities.SingleAsync(r => r.Name == editProfileDto.RoleName);
+            var role = await _unitOfWork.RoleRepository.Entities.SingleAsync(r => r.Name == userDto.RoleName);
             if (role == null)
             {
                 return null;
             }
 
-            var externalProvider = await _unitOfWork.ExternalProviderRepository.Entities.SingleAsync(e => e.Name == editProfileDto.ExternalProviderName);
+            var externalProvider = await _unitOfWork.ExternalProviderRepository.Entities.SingleAsync(e => e.Name == userDto.ExternalProviderName);
             if (externalProvider == null)
             {
                 return null;
             }
 
+            var userEntity = _mapper.Map<AddUserDto, Data.Models.User>(userDto);
             userEntity.Role = role;
             userEntity.ExternalProvider = externalProvider;
 
             await _unitOfWork.UserRepository.AddAsync(userEntity);
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<Data.Models.User, EditProfileDto>(userEntity);
+            return _mapper.Map<Data.Models.User, AddUserDto>(userEntity);
         }
 
+        public async Task<AddUserDto> UpdateUser(UpdateUserDto userDto)
+        {
+            var userEntity = _unitOfWork.UserRepository.Entities.SingleOrDefault(u => u.Email == userDto.Email);
+            if (userEntity == null)
+            {
+                throw new Exception("User does not exist");
+            }
+
+            _mapper.Map(userDto, userEntity);
+            await _unitOfWork.CommitAsync();
+            return _mapper.Map<Data.Models.User, AddUserDto>(userEntity);
+        }
+
+        public async Task<Data.Models.User> GetUser(string email)
+        {
+            var user = await _unitOfWork.UserRepository.Entities.SingleOrDefaultAsync(u => u.Email == email);
+            return user;
+        }
+
+        public async Task DeleteUser(Data.Models.User user)
+        {
+            user.IsDeleted = true;
+            await _unitOfWork.CommitAsync();
+        }
     }
 }
