@@ -43,17 +43,18 @@ namespace Joblify.Core.User
             return _mapper.Map<Data.Models.User, AddUserDto>(userEntity);
         }
 
-        public async Task<AddUserDto> UpdateUser(UpdateUserDto userDto)
+        public async Task<UpdateUserDto> UpdateUser(UpdateUserDto userDto)
         {
             var userEntity = _unitOfWork.UserRepository.Entities.SingleOrDefault(u => u.Email == userDto.Email);
+
             if (userEntity == null)
             {
-                throw new Exception("User does not exist");
+                 return  null;
             }
 
             _mapper.Map(userDto, userEntity);
             await _unitOfWork.CommitAsync();
-            return _mapper.Map<Data.Models.User, AddUserDto>(userEntity);
+            return _mapper.Map<Data.Models.User, UpdateUserDto>(userEntity);
         }
 
         public async Task<Data.Models.User> GetUser(string email)
@@ -66,6 +67,12 @@ namespace Joblify.Core.User
         {
             user.IsDeleted = true;
             await _unitOfWork.CommitAsync();
+        }
+
+        public async Task<bool> CheckIfUserExists(string email)
+        {
+            var userExists = await _unitOfWork.UserRepository.Entities.AnyAsync(u => u.Email == email);
+            return userExists;
         }
     }
 }

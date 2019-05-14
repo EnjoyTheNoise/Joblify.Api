@@ -28,6 +28,13 @@ namespace Joblify.Core.Api.User
             return Ok(result);
         }
 
+        [HttpGet("{email}")]
+        public async Task<IActionResult> CheckIfEmailExists(string email)
+        {
+            var result = await _userService.CheckIfUserExists(email);
+            return Ok(result);
+        }
+
         [HttpPost]
         [ValidateModel]
         public async Task<IActionResult> CreateProfile([FromBody] AddUserDto dto)
