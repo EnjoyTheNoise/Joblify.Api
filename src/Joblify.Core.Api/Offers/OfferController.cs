@@ -55,5 +55,17 @@ namespace Joblify.Core.Api.Offers
 
             return Ok(response);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var response = await _offerService.GetOfferById(id);
+
+            if (response == null)
+            {
+                return BadRequest();
+            }
+            return Ok(response);
+        }
     }
 }

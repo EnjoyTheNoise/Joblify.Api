@@ -10,5 +10,6 @@ namespace Joblify.Core.Offers
         Task<OfferDto> AddOfferAsync(OfferDto offerDto);
         Task<IEnumerable<GetAllCategoriesDto>> GetAllCategories();
         Task<IEnumerable<GetAllTradesDto>> GetAllTrades();
+        Task<GetOfferByIdDto> GetOfferById(int id);
     }
 }

@@ -44,5 +44,12 @@ namespace Joblify.Core.Offers
             var getAllTradesDtos = _mapper.Map<List<Trade>, List<GetAllTradesDto>>(trades);
             return getAllTradesDtos;
         }
+
+        public async Task<GetOfferByIdDto> GetOfferById(int id)
+        {
+            var offer = await _unitOfWork.OfferRepository.Entities.FirstOrDefaultAsync();
+            var showOfferDto = _mapper.Map<Offer, GetOfferByIdDto>(offer);
+            return showOfferDto;
+        }
     }
 }
