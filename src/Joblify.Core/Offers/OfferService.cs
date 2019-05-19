@@ -47,7 +47,7 @@ namespace Joblify.Core.Offers
 
         public async Task<GetOfferByIdDto> GetOfferById(int id)
         {
-            var offer = await _unitOfWork.OfferRepository.Entities.FirstOrDefaultAsync();
+            var offer = await _unitOfWork.OfferRepository.Entities.Where(x => x.Id == id).Include(x => x.User).FirstOrDefaultAsync();
             var showOfferDto = _mapper.Map<Offer, GetOfferByIdDto>(offer);
             return showOfferDto;
         }
