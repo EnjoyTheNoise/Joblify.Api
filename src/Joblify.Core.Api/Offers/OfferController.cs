@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Joblify.Core.Api.Infrastructure.ActionFilterAttributes;
 using Joblify.Core.Offers;
+using Joblify.Search;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -9,18 +10,18 @@ namespace Joblify.Core.Api.Offers
     [Route("api/offer")]
     public class OfferController : Controller
     {
-        private readonly IOfferService _offerService;
+        private readonly IOfferSearchIndex _offerSearchIndex;
 
-        public OfferController(IOfferService offerService)
+        public OfferController(IOfferSearchIndex offerSearchIndex)
         {
-            _offerService = offerService;
+            _offerSearchIndex = offerSearchIndex;
         }
 
         [HttpPost]
         [ValidateModel]
-        public async Task<IActionResult> AddOfferAsync([FromBody] OfferDto offerDto)
+        public IActionResult AddOffer([FromBody] OfferDto offerDto)
         {
-            var result = await _offerService.AddOfferAsync(offerDto);
+            var result =  _offerSearchIndex.AddOfferAsync(offerDto);
 
             if(result == null)
             {
