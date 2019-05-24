@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Joblify.Core.Data.Models;
 using Joblify.Core.Offers;
-using Joblify.Core.User.Dto;
+using Joblify.Core.Users.Dto;
 
 namespace Joblify.Core.Api.Infrastructure
 {
@@ -9,10 +9,11 @@ namespace Joblify.Core.Api.Infrastructure
     {
         public AutoMapperProfile()
         {
-            CreateMap<Data.Models.User, AddUserDto>();
-            CreateMap<Data.Models.User, UpdateUserDto>();
-            CreateMap<AddUserDto, Data.Models.User>();
-            CreateMap<UpdateUserDto, Data.Models.User>();
+            CreateMap<User, AddUserDto>();
+            CreateMap<User, UpdateUserDto>();
+            CreateMap<User, UserDto>();
+            CreateMap<AddUserDto, User>();
+            CreateMap<UpdateUserDto, User>();
             CreateMap<Offer, OfferDto>();
         }
     }

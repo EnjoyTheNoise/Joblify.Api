@@ -2,7 +2,7 @@
 using Joblify.Core.Data.Context;
 using Joblify.Core.Data.UnitOfWork;
 using Joblify.Core.Offers;
-using Joblify.Core.User;
+using Joblify.Core.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

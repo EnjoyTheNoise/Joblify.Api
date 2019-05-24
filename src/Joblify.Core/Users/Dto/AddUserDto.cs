@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Joblify.Core.User.Dto
+namespace Joblify.Core.Users.Dto
 {
     public class AddUserDto
     {
