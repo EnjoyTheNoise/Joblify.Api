@@ -1,15 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Joblify.Core.User.Dto
+namespace Joblify.Core.Users.Dto
 {
     public class UpdateUserDto
     {
-        [Required]
-        public string ExternalProviderName { get; set; }
-
-        [Required]
-        public string RoleName { get; set; }
 
         [Required]
         public string FirstName { get; set; }
