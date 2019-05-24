@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Joblify.Core.Api.Infrastructure.ActionFilterAttributes;
-using Joblify.Core.User;
-using Joblify.Core.User.Dto;
+using Joblify.Core.Users;
+using Joblify.Core.Users.Dto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Joblify.Core.Api.User
+namespace Joblify.Core.Api.Users
 {
     [Route("api/user")]
     public class UserController : Controller
@@ -16,7 +16,7 @@ namespace Joblify.Core.Api.User
             _userService = loginService;
         }
 
-        [HttpGet]
+        [HttpGet("{email}")]
         public async Task<IActionResult> GetUser(string email)
         {
             var result = await _userService.GetUser(email);
@@ -28,7 +28,7 @@ namespace Joblify.Core.Api.User
             return Ok(result);
         }
 
-        [HttpGet("{email}")]
+        [HttpGet("check/{email}")]
         public async Task<IActionResult> CheckIfEmailExists(string email)
         {
             var result = await _userService.CheckIfUserExists(email);
@@ -60,24 +60,19 @@ namespace Joblify.Core.Api.User
                 return BadRequest();
             }
 
-            return Created("", result);
+            return Ok(result);
         }
 
-        [HttpDelete]
+        [HttpDelete("{email}")]
         public async Task<IActionResult> DeleteUser(string email)
         {
-            var userEntityForDelete = await _userService.GetUser(email);
-            if (userEntityForDelete == null)
+            var userExists = await _userService.CheckIfUserExists(email);
+            if (!userExists)
             {
                 return NotFound();
             }
 
-            if (userEntityForDelete.IsDeleted)
-            {
-                return NotFound();
-            }
-
-            await _userService.DeleteUser(userEntityForDelete);
+            await _userService.DeleteUser(email);
             return NoContent();
         }
     }
