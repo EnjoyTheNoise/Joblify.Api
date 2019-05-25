@@ -27,6 +27,7 @@ namespace Joblify.Core.Api.Offers
             {
                 return BadRequest();
             }
+
             return Created("", result);
         }
 
@@ -38,7 +39,7 @@ namespace Joblify.Core.Api.Offers
             return Ok(result);
         }
 
-        [HttpGet("search/employers/{pattern}")]
+        [HttpGet("search/employers")]
         public IActionResult GetAllEmployers(string pattern)
         {
             var result = _offerSearchIndex.SearchOffersByString("category eq 'employer'");

@@ -25,7 +25,7 @@ namespace Joblify.Core.Offers
             var category = await GetCategoryByNameAsync(offerDto.Category);
             var user = await GetUserByIdAsync(offerDto.UserId);
 
-            if(user == null)
+            if(user == null || category == null)
             {
                 return null;
             }
@@ -75,17 +75,6 @@ namespace Joblify.Core.Offers
             var category = await _unitOfWork.CategoryRepository
                 .Entities.Where(c => c.Name == name)
                 .FirstOrDefaultAsync();
-
-            if (category == null)
-            {
-                category = new Category
-                {
-                    Name = name
-                };
-
-                await _unitOfWork.CategoryRepository.AddAsync(category);
-                await _unitOfWork.CommitAsync();
-            }
 
             return category;
         }

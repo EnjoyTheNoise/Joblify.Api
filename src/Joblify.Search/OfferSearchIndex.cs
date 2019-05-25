@@ -69,6 +69,11 @@ namespace Joblify.Search
 
             var offer = await _offerService.AddOfferAsync(offerDto);
 
+            if(offer == null)
+            {
+                return null;
+            }
+
             var offerModel = _mapper.Map<OfferSearchModel>(offer);
             var action = new IndexAction<OfferSearchModel>[] { IndexAction.Upload(offerModel) };
             var batch = IndexBatch.New(action);
