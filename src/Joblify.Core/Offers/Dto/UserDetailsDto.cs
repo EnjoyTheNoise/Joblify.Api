@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Joblify.Core.Offers.Dto
 {
-    public class UserDto
+    public class UserDetailsDto
     {
         public int Id { get; set; }
 

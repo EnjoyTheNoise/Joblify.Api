@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Joblify.Core.Data.Models;
-using Joblify.Core.Offers;
 using Joblify.Core.Offers.Dto;
 using Joblify.Search.Models;
 using Joblify.Core.Users.Dto;
@@ -22,14 +21,14 @@ namespace Joblify.Core.Api.Infrastructure
                 .ForMember(dest => dest.LastName, s => s.MapFrom(src => src.User.LastName));
             CreateMap<User, AddUserDto>();
             CreateMap<User, UpdateUserDto>();
-            CreateMap<User, Core.Offers.Dto.UserDto>();
+            CreateMap<User, UserDetailsDto>();
             CreateMap<AddUserDto, User>();
             CreateMap<UpdateUserDto, User>();
             CreateMap<Offer, OfferDto>();
             CreateMap<Category, GetAllCategoriesDto>();
             CreateMap<Trade, GetAllTradesDto>();
             CreateMap<Offer, GetOfferByIdDto>();
-            CreateMap<User, Core.Users.Dto.UserDto>();
+            CreateMap<User, UserDto>();
         }
     }
 }
