@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace Joblify.Search
 {
@@ -44,8 +45,8 @@ namespace Joblify.Search
             {   // sometimes adding to index may fail 
                 // (may happen if service is under heavy load)
                 
-                if (count < 5 && e.Response.StatusCode != System.Net.HttpStatusCode.NotFound
-                    && e.Response.StatusCode != System.Net.HttpStatusCode.BadRequest)
+                if (count < 5 && e.Response.StatusCode != HttpStatusCode.NotFound
+                    && e.Response.StatusCode != HttpStatusCode.BadRequest)
                 {
                     Thread.Sleep(5000);
                     await AddBatchToIndexAsync(offerBatch, ++count);
