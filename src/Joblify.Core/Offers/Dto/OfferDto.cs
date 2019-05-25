@@ -12,14 +12,20 @@ namespace Joblify.Core.Offers.Dto
         public float Price { get; set; }
 
         [Required]
-        public int CategoryId { get; set; }
+        public string Category { get; set; }
 
         [Required]
-        public int TradeId { get; set; }
+        public string Trade { get; set; }
 
         public string AvailableTime { get; set; }
 
         [Required]
         public int UserId { get; set;}
+
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
     }
 }
