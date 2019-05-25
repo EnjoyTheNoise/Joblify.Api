@@ -11,17 +11,19 @@ namespace Joblify.Core.Api.Offers
     public class OfferController : Controller
     {
         private readonly IOfferSearchIndex _offerSearchIndex;
+        private readonly IOfferService _offerService;
 
-        public OfferController(IOfferSearchIndex offerSearchIndex)
+        public OfferController(IOfferSearchIndex offerSearchIndex, IOfferService offerService)
         {
             _offerSearchIndex = offerSearchIndex;
+            _offerService = offerService;
         }
 
         [HttpPost]
         [ValidateModel]
         public async Task<IActionResult> AddOfferAsync([FromBody] OfferDto offerDto)
         {
-            var result = await _offerSearchIndex.AddOfferAsync(offerDto);
+            var result = await _offerService.AddOfferAsync(offerDto);
 
             if(result == null)
             {

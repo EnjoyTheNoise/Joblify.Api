@@ -1,12 +1,8 @@
-﻿using AutoMapper;
-using Joblify.Core.Offers;
-using Joblify.Search.Models;
+﻿using Joblify.Search.Models;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,20 +10,16 @@ namespace Joblify.Search
 {
     public class OfferSearchIndex : SearchIndexClient, IOfferSearchIndex
     {
-        private readonly IOfferService _offerService;
         private readonly SearchServiceClient _searchService;
-        private readonly IMapper _mapper;
         private readonly string _indexName;
 
-        public OfferSearchIndex(IConfiguration configuration, IMapper mapper, IOfferService offerService)
+        public OfferSearchIndex(IConfiguration configuration)
             : base(configuration["SearchServiceName"], configuration["OfferSearchIndexName"],
                   new SearchCredentials(configuration["SearchServiceQueryApiKey"]))
         {
             _searchService = new SearchServiceClient(configuration["SearchServiceName"],
               new SearchCredentials(configuration["SearchServiceAdminApiKey"]));
             _indexName = configuration["OfferSearchIndexName"];
-            _offerService = offerService;
-            _mapper = mapper;
         }
 
         private void CreateIndex()
@@ -41,45 +33,38 @@ namespace Joblify.Search
             _searchService.Indexes.Create(definition);
         }
 
-        private bool AddBatchToIndex(IndexBatch<OfferSearchModel> offerBatch, int count = 0)
+        private async Task<bool> AddBatchToIndexAsync(IndexBatch<OfferSearchModel> offerBatch, int count = 0)
         {
             try
             {
-                Documents.Index(offerBatch);
+                await Documents.IndexAsync(offerBatch);
                 return true;
             }
             catch (IndexBatchException)
             {   // sometimes adding to index may fail 
                 // (may happen if service is under heavy load)
+                
                 if (count < 5)
                 {
                     Thread.Sleep(5000);
-                    return AddBatchToIndex(offerBatch, ++count);
+                    await AddBatchToIndexAsync(offerBatch, ++count);
                 }
                 return false;
             }
         }
 
-        public async Task<OfferDto> AddOfferAsync(OfferDto offerDto)
+        public async Task<OfferSearchModel> AddOfferAsync(OfferSearchModel offer)
         {
             if (!_searchService.Indexes.Exists(_indexName))
             {
                 CreateIndex();
             }
-
-            var offer = await _offerService.AddOfferAsync(offerDto);
-
-            if(offer == null)
-            {
-                return null;
-            }
-
-            var offerModel = _mapper.Map<OfferSearchModel>(offer);
-            var action = new IndexAction<OfferSearchModel>[] { IndexAction.Upload(offerModel) };
+            
+            var action = new IndexAction<OfferSearchModel>[] { IndexAction.Upload(offer) };
             var batch = IndexBatch.New(action);
 
-            AddBatchToIndex(batch);
-            return offerDto;
+            await AddBatchToIndexAsync(batch);
+            return offer;
         }
 
         public IList<SearchResult<OfferSearchModel>> SearchOffersByString(string searchString)

@@ -4,8 +4,6 @@ namespace Joblify.Core.Offers
 {
     public class OfferDto
     {
-        public int Id { get; set; }
-
         [Required]
         public string Title { get; set; }
 

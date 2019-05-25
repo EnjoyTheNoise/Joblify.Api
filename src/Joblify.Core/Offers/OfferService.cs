@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Joblify.Core.Data.Models;
 using Joblify.Core.Data.UnitOfWork;
+using Joblify.Search;
+using Joblify.Search.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,11 +13,13 @@ namespace Joblify.Core.Offers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IOfferSearchIndex _offerSearchIndex;
 
-        public OfferService(IMapper mapper, IUnitOfWork unitOfWork)
+        public OfferService(IMapper mapper, IUnitOfWork unitOfWork, IOfferSearchIndex offerSearchIndex)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _offerSearchIndex = offerSearchIndex;
         }
 
         public async Task<OfferDto> AddOfferAsync(OfferDto offerDto)
@@ -37,8 +41,10 @@ namespace Joblify.Core.Offers
             await _unitOfWork.OfferRepository.AddAsync(offer);
             await _unitOfWork.CommitAsync();
 
-            var created = _mapper.Map<OfferDto>(offer);
-            return created;
+            var indexModel = _mapper.Map<OfferSearchModel>(offer);
+            await _offerSearchIndex.AddOfferAsync(indexModel);
+
+            return offerDto;
         }
 
         private async Task<User> GetUserByIdAsync(int id)
