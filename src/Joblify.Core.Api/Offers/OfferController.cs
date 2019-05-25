@@ -20,7 +20,7 @@ namespace Joblify.Core.Api.Offers
             _offerService = offerService;
         }
 
-        [HttpPost]  
+        [HttpPost]
         [ValidateModel]
         public async Task<IActionResult> AddOfferAsync([FromBody] OfferDto offerDto)
         {
@@ -59,6 +59,19 @@ namespace Joblify.Core.Api.Offers
 
             return Ok(response);
         }
+
+        [HttpGet("getById")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var response = await _offerService.GetOfferById(id);
+            if (response == null)
+            {
+                return BadRequest();
+            }
+            return Ok(response);
+        }
+
+
 
         [HttpGet("search/employees")]
         public IActionResult GetAllEmployees(string pattern)
