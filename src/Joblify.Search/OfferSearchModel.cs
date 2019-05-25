@@ -10,7 +10,7 @@ namespace Joblify.Search.Models
     public class OfferSearchModel
     {
         [System.ComponentModel.DataAnnotations.Key]
-        [IsFilterable]
+        [IsFilterable, IsSearchable]
         public string Id { get; set; }
 
         [IsFilterable, IsSortable, IsSearchable]

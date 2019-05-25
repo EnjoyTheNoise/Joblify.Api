@@ -14,7 +14,7 @@ namespace Joblify.Core.Data.Models
         public string Description { get; set; }
 
         public float Price { get; set; }
-        
+
         [Required]
         [ForeignKey("Category")]
         public int CategoryId { get; set; }

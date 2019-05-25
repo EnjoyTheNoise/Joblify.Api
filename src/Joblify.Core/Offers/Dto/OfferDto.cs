@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Joblify.Core.Offers
+namespace Joblify.Core.Offers.Dto
 {
     public class OfferDto
     {
@@ -9,7 +9,7 @@ namespace Joblify.Core.Offers
 
         public string Description { get; set; }
 
-        public double Price { get; set; }
+        public float Price { get; set; }
 
         [Required]
         public string Category { get; set; }

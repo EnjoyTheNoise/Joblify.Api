@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Joblify.Core.Data.Models;
 using Joblify.Core.Data.UnitOfWork;
 using Joblify.Search;
@@ -6,6 +8,8 @@ using Joblify.Search.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using Joblify.Core.Offers.Dto;
+using Microsoft.EntityFrameworkCore;
 
 namespace Joblify.Core.Offers
 {
@@ -83,6 +87,27 @@ namespace Joblify.Core.Offers
                 .FirstOrDefaultAsync();
 
             return category;
+        }
+
+        public async Task<IEnumerable<GetAllCategoriesDto>> GetAllCategories()
+        {
+            var categories = await _unitOfWork.CategoryRepository.Entities.ToListAsync();
+            var getAllCategoriesDtos = _mapper.Map<List<Category>, List<GetAllCategoriesDto>>(categories);
+            return getAllCategoriesDtos;
+        }
+
+        public async Task<IEnumerable<GetAllTradesDto>> GetAllTrades()
+        {
+            var trades = await _unitOfWork.TradeRepository.Entities.ToListAsync();
+            var getAllTradesDtos = _mapper.Map<List<Trade>, List<GetAllTradesDto>>(trades);
+            return getAllTradesDtos;
+        }
+
+        public async Task<GetOfferByIdDto> GetOfferById(int id)
+        {
+            var offer = await _unitOfWork.OfferRepository.Entities.Where(x => x.Id == id).Include(x => x.User).FirstOrDefaultAsync();
+            var showOfferDto = _mapper.Map<Offer, GetOfferByIdDto>(offer);
+            return showOfferDto;
         }
     }
 }
