@@ -37,14 +37,15 @@ namespace Joblify.Search
         {
             try
             {
-                await Documents.IndexAsync(offerBatch);
-                return true;
+                var result = await Documents.IndexAsync(offerBatch);
+                return result.Results[0].Succeeded;
             }
-            catch (IndexBatchException)
+            catch (IndexBatchException e)
             {   // sometimes adding to index may fail 
                 // (may happen if service is under heavy load)
                 
-                if (count < 5)
+                if (count < 5 && e.Response.StatusCode != System.Net.HttpStatusCode.NotFound
+                    && e.Response.StatusCode != System.Net.HttpStatusCode.BadRequest)
                 {
                     Thread.Sleep(5000);
                     await AddBatchToIndexAsync(offerBatch, ++count);
