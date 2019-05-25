@@ -60,21 +60,21 @@ namespace Joblify.Search
             }
         }
 
-        public Task<OfferDto> AddOfferAsync(OfferDto offerDto)
+        public async Task<OfferDto> AddOfferAsync(OfferDto offerDto)
         {
             if (!_searchService.Indexes.Exists(_indexName))
             {
                 CreateIndex();
             }
 
-            var o = _offerService.AddOfferAsync(offerDto);
-            var offerModel = _mapper.Map<OfferSearchModel>(o);
+            var offer = await _offerService.AddOfferAsync(offerDto);
 
+            var offerModel = _mapper.Map<OfferSearchModel>(offer);
             var action = new IndexAction<OfferSearchModel>[] { IndexAction.Upload(offerModel) };
             var batch = IndexBatch.New(action);
 
             AddBatchToIndex(batch);
-            return o;
+            return offerDto;
         }
 
         public IList<SearchResult<OfferSearchModel>> SearchOffersByString(string searchString)

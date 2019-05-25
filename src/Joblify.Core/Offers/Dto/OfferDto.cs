@@ -4,6 +4,8 @@ namespace Joblify.Core.Offers
 {
     public class OfferDto
     {
+        public int Id { get; set; }
+
         [Required]
         public string Title { get; set; }
 
@@ -12,14 +14,20 @@ namespace Joblify.Core.Offers
         public double Price { get; set; }
 
         [Required]
-        public int CategoryId { get; set; }
+        public string Category { get; set; }
 
         [Required]
-        public int TradeId { get; set; }
+        public string Trade { get; set; }
 
         public string AvailableTime { get; set; }
 
         [Required]
         public int UserId { get; set;}
+
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
     }
 }

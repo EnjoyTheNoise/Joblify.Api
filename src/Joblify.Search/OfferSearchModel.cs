@@ -23,16 +23,13 @@ namespace Joblify.Search.Models
         public double Price { get; set; }
 
         [IsFilterable, IsSortable, IsSearchable, IsFacetable]
-        public string CategoryName { get; set; }
+        public string Category { get; set; }
 
         [IsFilterable, IsSortable, IsSearchable, IsFacetable]
-        public string TradeName { get; set; }
+        public string Trade { get; set; }
 
         [IsSearchable]
         public string AvailableTime { get; set; }
-
-        [IsFilterable, IsSortable, IsFacetable]
-        public string IsDeleted { get; set; }
 
         [IsFilterable]
         public int UserId { get; set; }

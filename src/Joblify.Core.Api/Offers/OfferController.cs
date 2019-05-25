@@ -19,15 +19,23 @@ namespace Joblify.Core.Api.Offers
 
         [HttpPost]
         [ValidateModel]
-        public IActionResult AddOffer([FromBody] OfferDto offerDto)
+        public async Task<IActionResult> AddOfferAsync([FromBody] OfferDto offerDto)
         {
-            var result =  _offerSearchIndex.AddOfferAsync(offerDto);
+            var result = await _offerSearchIndex.AddOfferAsync(offerDto);
 
             if(result == null)
             {
                 return BadRequest();
             }
             return Created("", result);
+        }
+
+        [HttpGet("search/{pattern}")]
+        public IActionResult SearchByString(string pattern)
+        {
+            var result = _offerSearchIndex.SearchOffersByString(pattern);
+
+            return Ok(result);
         }
     }
 }
