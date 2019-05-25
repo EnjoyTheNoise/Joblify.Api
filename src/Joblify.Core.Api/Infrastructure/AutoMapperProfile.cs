@@ -26,7 +26,6 @@ namespace Joblify.Core.Api.Infrastructure
             CreateMap<AddUserDto, User>();
             CreateMap<UpdateUserDto, User>();
             CreateMap<Offer, OfferDto>();
-            CreateMap<OfferDto, Offer>();
             CreateMap<Category, GetAllCategoriesDto>();
             CreateMap<Trade, GetAllTradesDto>();
             CreateMap<Offer, GetOfferByIdDto>();

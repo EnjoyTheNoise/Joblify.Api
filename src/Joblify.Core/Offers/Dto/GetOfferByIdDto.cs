@@ -12,6 +12,6 @@ namespace Joblify.Core.Offers.Dto
 
         public string AvailableTime { get; set; }
 
-        public UserDto User { get; set; }
+        public UserDetailsDto User { get; set; }
     }
 }

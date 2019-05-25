@@ -20,7 +20,7 @@ namespace Joblify.Core.Api.Offers
             _offerService = offerService;
         }
 
-        [HttpPost]
+        [HttpPost]  
         [ValidateModel]
         public async Task<IActionResult> AddOfferAsync([FromBody] OfferDto offerDto)
         {
