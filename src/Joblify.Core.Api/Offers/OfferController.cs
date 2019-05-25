@@ -30,10 +30,34 @@ namespace Joblify.Core.Api.Offers
             return Created("", result);
         }
 
-        [HttpGet("search/{pattern}")]
-        public IActionResult SearchByString(string pattern)
+        [HttpGet("search/employees")]
+        public IActionResult GetAllEmployees(string pattern)
         {
-            var result = _offerSearchIndex.SearchOffersByString(pattern);
+            var result = _offerSearchIndex.SearchOffersByString("category eq 'employee'");
+
+            return Ok(result);
+        }
+
+        [HttpGet("search/employers/{pattern}")]
+        public IActionResult GetAllEmployers(string pattern)
+        {
+            var result = _offerSearchIndex.SearchOffersByString("category eq 'employer'");
+
+            return Ok(result);
+        }
+
+        [HttpGet("search/employee/{pattern}")]
+        public IActionResult SearchByStringEmployee(string pattern)
+        {
+            var result = _offerSearchIndex.SearchOffersByString("category eq 'employee' and " + pattern);
+
+            return Ok(result);
+        }
+
+        [HttpGet("search/employer/{pattern}")]
+        public IActionResult SearchByStringEmployer(string pattern)
+        {
+            var result = _offerSearchIndex.SearchOffersByString("category eq 'employer' and " + pattern);
 
             return Ok(result);
         }

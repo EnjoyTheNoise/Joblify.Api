@@ -82,5 +82,6 @@ namespace Joblify.Search
             var results = Documents.Search<OfferSearchModel>(searchString);
             return results.Results;
         }
+        
     }
 }

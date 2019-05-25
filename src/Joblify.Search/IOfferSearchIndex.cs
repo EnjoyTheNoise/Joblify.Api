@@ -10,5 +10,6 @@ namespace Joblify.Search
     {
         Task<OfferDto> AddOfferAsync(OfferDto offerDto);
         IList<SearchResult<OfferSearchModel>> SearchOffersByString(string searchString);
+
     }
 }
