@@ -25,6 +25,9 @@ namespace Joblify.Core.Data.Models
         public string Email { get; set; }
 
         [Required]
+        public string PhoneNumber { get; set; }
+
+        [Required]
         public DateTime Birthdate { get; set; }
 
         public string PhotoUrl { get; set; }
