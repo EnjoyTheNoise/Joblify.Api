@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Joblify.Core.Data\Joblify.Core.Data.csproj" />
+    <ProjectReference Include="..\Joblify.Search\Joblify.Search.csproj" />
   </ItemGroup>
 
 </Project>

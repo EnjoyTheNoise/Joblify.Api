@@ -2,6 +2,7 @@
 using Joblify.Core.Data.Context;
 using Joblify.Core.Data.UnitOfWork;
 using Joblify.Core.Offers;
+using Joblify.Search;
 using Joblify.Core.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,7 @@ namespace Joblify.Core.Api
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IOfferService, OfferService>();
+            services.AddTransient<IOfferSearchIndex, OfferSearchIndex>();
             services.AddDbContext<JoblifyDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AzureDb")));
         }
