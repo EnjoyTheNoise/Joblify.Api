@@ -37,7 +37,8 @@ namespace Joblify.Core.Offers
             await _unitOfWork.OfferRepository.AddAsync(offer);
             await _unitOfWork.CommitAsync();
 
-            return offerDto;
+            var created = _mapper.Map<OfferDto>(offer);
+            return created;
         }
 
         private async Task<User> GetUserByIdAsync(int id)
