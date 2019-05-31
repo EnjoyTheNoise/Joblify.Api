@@ -109,5 +109,12 @@ namespace Joblify.Core.Offers
             var showOfferDto = _mapper.Map<Offer, GetOfferByIdDto>(offer);
             return showOfferDto;
         }
+
+        public async Task<IEnumerable<OfferDto>> GetOffersForUser(int id)
+        {
+            var offers = await _unitOfWork.OfferRepository.Entities.Where(i => i.UserId == id).ToListAsync();
+            var offersToReturn = _mapper.Map<List<Offer>, List<OfferDto>>(offers);
+            return offersToReturn;
+        }
     }
 }
