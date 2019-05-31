@@ -4,7 +4,7 @@ using Joblify.Core.Offers;
 using Joblify.Core.Offers.Dto;
 using Joblify.Search;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.Azure.Search.Models;
 
 namespace Joblify.Core.Api.Offers
 {
@@ -71,37 +71,27 @@ namespace Joblify.Core.Api.Offers
             return Ok(response);
         }
 
-
-
-        [HttpGet("search/employees")]
-        public IActionResult GetAllEmployees(string pattern)
+        [HttpGet("search/page/{page:int}")]
+        public IActionResult GetAllEmployees(string trade, string category,[FromQuery] int page=1, int offersInPage=5, string phrase="*")
         {
-            var result = _offerSearchIndex.SearchOffersByString("category eq 'employee'");
 
-            return Ok(result);
-        }
+            var parameters = new SearchParameters();
 
-        [HttpGet("search/employers")]
-        public IActionResult GetAllEmployers(string pattern)
-        {
-            var result = _offerSearchIndex.SearchOffersByString("category eq 'employer'");
+            if (category != null)
+                parameters.Filter = $"category eq '{category}'";
 
-            return Ok(result);
-        }
+            if (trade != null)
+            {
+                if (category != null)
+                    parameters.Filter += $" and trade eq '{trade}'";
+                else
+                    parameters.Filter = $"trade eq '{trade}'";
+            }
 
-        [HttpGet("search/employee/{pattern}")]
-        public IActionResult SearchByStringEmployee(string pattern)
-        {
-            var result = _offerSearchIndex.SearchOffersByString("category eq 'employee' and " + pattern);
+            parameters.Skip = (page-1)*offersInPage;
+            parameters.Top = offersInPage;
 
-            return Ok(result);
-        }
-
-        [HttpGet("search/employer/{pattern}")]
-        public IActionResult SearchByStringEmployer(string pattern)
-        {
-            var result = _offerSearchIndex.SearchOffersByString("category eq 'employer' and " + pattern);
-
+            var result = _offerSearchIndex.SearchOffers(parameters, phrase, offersInPage);
             return Ok(result);
         }
     }

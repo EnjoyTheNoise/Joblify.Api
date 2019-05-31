@@ -6,10 +6,8 @@ using Joblify.Core.Data.UnitOfWork;
 using Joblify.Search;
 using Joblify.Search.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 using Joblify.Core.Offers.Dto;
-using Microsoft.EntityFrameworkCore;
 
 namespace Joblify.Core.Offers
 {
