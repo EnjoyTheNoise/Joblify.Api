@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Joblify.Core.Api.Infrastructure.ActionFilterAttributes;
 using Joblify.Core.Offers;
 using Joblify.Core.Offers.Dto;
@@ -72,10 +73,17 @@ namespace Joblify.Core.Api.Offers
         }
 
         [HttpGet("search/page/{page:int}")]
-        public IActionResult GetAllEmployees(string trade, string category,[FromQuery] int page=1, int offersInPage=5, string phrase="*")
+        public IActionResult GetAllEmployees(string trade, string category, string orderby,[FromQuery] int page=1, int offersInPage=5, string phrase="*")
         {
 
             var parameters = new SearchParameters();
+
+            if(orderby != null)
+            {
+                var orderList = new List<string>();
+                orderList.Add(orderby);
+                parameters.OrderBy = orderList;
+            }
 
             if (category != null)
                 parameters.Filter = $"category eq '{category}'";
