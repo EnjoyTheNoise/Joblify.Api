@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
 using Joblify.Core.Api.Infrastructure.ActionFilterAttributes;
 using Joblify.Core.Offers;
 using Joblify.Core.Offers.Dto;
@@ -58,6 +59,47 @@ namespace Joblify.Core.Api.Offers
             }
 
             return Ok(response);
+        }
+
+        [HttpGet("getOffersForUser")]
+        public async Task<IActionResult> GetOffersForUser(int id)
+        {
+            var response = await _offerService.GetOffersForUser(id);
+            if (response == null)
+            {
+                return BadRequest();
+            }
+            return Ok(response);
+        }
+
+        [HttpPut("UpdateOffer")]
+        public async Task<IActionResult> UpdateOffer(int id, [FromBody]EditOfferDto offer)
+        {
+            if (offer is null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return new UnprocessableEntityObjectResult(ModelState);
+            }
+
+            var offerFromDatabase = await _offerService.GetOfferEntity(id);
+
+            if (offerFromDatabase is null)
+            {
+                    return BadRequest();
+            }
+
+            bool isSaved = await _offerService.UpdateOffer(offer, offerFromDatabase);
+
+            if (!isSaved)
+            {
+                return BadRequest();
+            }
+
+            return NoContent();
         }
 
         [HttpGet("getById")]

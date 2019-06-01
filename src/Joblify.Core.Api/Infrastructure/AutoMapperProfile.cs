@@ -10,6 +10,9 @@ namespace Joblify.Core.Api.Infrastructure
     {
         public AutoMapperProfile()
         {
+            CreateMap<EditOfferDto, Offer>()
+                .ForMember(dest => dest.Category, opt => opt.Ignore())
+                .ForMember(dest => dest.Trade, opt => opt.Ignore());
             CreateMap<OfferDto, Offer>()
                 .ForMember(dest => dest.Category, opt => opt.Ignore())
                 .ForMember(dest => dest.Trade, opt => opt.Ignore());
@@ -24,7 +27,7 @@ namespace Joblify.Core.Api.Infrastructure
             CreateMap<User, UserDetailsDto>();
             CreateMap<AddUserDto, User>();
             CreateMap<UpdateUserDto, User>();
-            CreateMap<Offer, OfferDto>();
+            CreateMap<Offer, EditOfferDto>();
             CreateMap<Category, GetAllCategoriesDto>();
             CreateMap<Trade, GetAllTradesDto>();
             CreateMap<Offer, GetOfferByIdDto>();
