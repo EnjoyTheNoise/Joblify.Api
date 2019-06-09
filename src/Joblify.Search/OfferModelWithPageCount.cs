@@ -10,6 +10,6 @@ namespace Joblify.Search
     {
         public IList<SearchResult<OfferSearchModel>> FoundOffers { get; set; }
 
-        public int PagesCount { get; set; }
+        public int OffersCount { get; set; }
     }
 }

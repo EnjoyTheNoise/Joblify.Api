@@ -82,7 +82,7 @@ namespace Joblify.Search
             OfferModelWithPageCount result = new OfferModelWithPageCount()
             {
                 FoundOffers = searchResult.Results,
-                PagesCount = searchToCount.Results.Count / offersInPage
+                OffersCount = searchToCount.Results.Count
             };
 
             return result;
