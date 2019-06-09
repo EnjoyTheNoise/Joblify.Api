@@ -88,7 +88,7 @@ namespace Joblify.Core.Api.Offers
             if (category != null)
                 parameters.Filter = $"category eq '{category}'";
 
-            if (trade != null && orderby != "All")
+            if (trade != null || trade == "All")
             {
                 if (category != null)
                     parameters.Filter += $" and trade eq '{trade}'";
