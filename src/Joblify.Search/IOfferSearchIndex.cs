@@ -9,6 +9,6 @@ namespace Joblify.Search
     {
         Task<OfferSearchModel> AddOfferAsync(OfferSearchModel offerDto);
 
-        IList<SearchResult<OfferSearchModel>> SearchOffersByString(string searchString);
+        OfferModelWithPageCount SearchOffers(SearchParameters parameters, string phrase, int offersInPage);
     }
 }

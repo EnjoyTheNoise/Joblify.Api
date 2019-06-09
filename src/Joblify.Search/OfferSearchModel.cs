@@ -27,7 +27,7 @@ namespace Joblify.Search.Models
 
         [IsFilterable, IsSortable, IsSearchable, IsFacetable]
         public string Trade { get; set; }
-
+        
         [IsSearchable]
         public string AvailableTime { get; set; }
 
@@ -39,5 +39,7 @@ namespace Joblify.Search.Models
 
         [IsSortable, IsSearchable]
         public string LastName { get; set; }
+
+        public string PhoneNumber { get; set; }
     }
 }

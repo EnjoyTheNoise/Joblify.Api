@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Joblify.Core.Api.Infrastructure.ActionFilterAttributes;
 using Joblify.Core.Offers;
 using Joblify.Core.Offers.Dto;
 using Joblify.Search;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.Azure.Search.Models;
 
 namespace Joblify.Core.Api.Offers
 {
@@ -71,37 +72,34 @@ namespace Joblify.Core.Api.Offers
             return Ok(response);
         }
 
-
-
-        [HttpGet("search/employees")]
-        public IActionResult GetAllEmployees(string pattern)
+        [HttpGet("search/page/{page:int}")]
+        public IActionResult GetAllEmployees(string trade, string category, string orderby,[FromQuery] int page=1, int offersInPage=5, string phrase="*")
         {
-            var result = _offerSearchIndex.SearchOffersByString("category eq 'employee'");
 
-            return Ok(result);
-        }
+            var parameters = new SearchParameters();
 
-        [HttpGet("search/employers")]
-        public IActionResult GetAllEmployers(string pattern)
-        {
-            var result = _offerSearchIndex.SearchOffersByString("category eq 'employer'");
+            if(orderby != null)
+            {
+                var orderList = new List<string>();
+                orderList.Add(orderby);
+                parameters.OrderBy = orderList;
+            }
 
-            return Ok(result);
-        }
+            if (category != null)
+                parameters.Filter = $"category eq '{category}'";
 
-        [HttpGet("search/employee/{pattern}")]
-        public IActionResult SearchByStringEmployee(string pattern)
-        {
-            var result = _offerSearchIndex.SearchOffersByString("category eq 'employee' and " + pattern);
+            if (trade != null || trade == "All")
+            {
+                if (category != null)
+                    parameters.Filter += $" and trade eq '{trade}'";
+                else
+                    parameters.Filter = $"trade eq '{trade}'";
+            }
 
-            return Ok(result);
-        }
+            parameters.Skip = (page-1)*offersInPage;
+            parameters.Top = offersInPage;
 
-        [HttpGet("search/employer/{pattern}")]
-        public IActionResult SearchByStringEmployer(string pattern)
-        {
-            var result = _offerSearchIndex.SearchOffersByString("category eq 'employer' and " + pattern);
-
+            var result = _offerSearchIndex.SearchOffers(parameters, phrase, offersInPage);
             return Ok(result);
         }
     }

@@ -18,7 +18,8 @@ namespace Joblify.Core.Api.Infrastructure
                 .ForMember(dest => dest.Trade, s => s.MapFrom(src => src.Trade.Name))
                 .ForMember(dest => dest.Category, s => s.MapFrom(src => src.Category.Name))
                 .ForMember(dest => dest.FirstName, s => s.MapFrom(src => src.User.FirstName))
-                .ForMember(dest => dest.LastName, s => s.MapFrom(src => src.User.LastName));
+                .ForMember(dest => dest.LastName, s => s.MapFrom(src => src.User.LastName))
+                .ForMember(dest => dest.PhoneNumber, s => s.MapFrom(src => src.User.PhoneNumber));
             CreateMap<User, AddUserDto>();
             CreateMap<User, UpdateUserDto>();
             CreateMap<User, UserDetailsDto>();

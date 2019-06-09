@@ -69,11 +69,23 @@ namespace Joblify.Search
             return offer;
         }
 
-        public IList<SearchResult<OfferSearchModel>> SearchOffersByString(string searchString)
+        public OfferModelWithPageCount SearchOffers(SearchParameters parameters, string phrase="*", int offersInPage=5)
         {
-            var results = Documents.Search<OfferSearchModel>(searchString);
-            return results.Results;
+            if (string.IsNullOrWhiteSpace(phrase))
+                phrase = "*";
+            
+            var searchResult = Documents.Search<OfferSearchModel>(phrase, parameters);
+            parameters.Skip = null;
+            parameters.Top = null;
+            var searchToCount = Documents.Search<OfferSearchModel>(phrase, parameters);
+
+            OfferModelWithPageCount result = new OfferModelWithPageCount()
+            {
+                FoundOffers = searchResult.Results,
+                OffersCount = searchToCount.Results.Count
+            };
+
+            return result;
         }
-        
     }
 }
