@@ -73,16 +73,11 @@ namespace Joblify.Core.Api.Offers
         }
 
         [HttpPut("UpdateOffer")]
-        public async Task<IActionResult> UpdateOffer(int id, [FromBody]EditOfferDto offer)
+        public async Task<IActionResult> UpdateOffer(int id, [FromBody]EditOfferDto updatedOffer)
         {
-            if (offer is null)
+            if (updatedOffer is null)
             {
                 return BadRequest();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return new UnprocessableEntityObjectResult(ModelState);
             }
 
             var offerFromDatabase = await _offerService.GetOfferEntity(id);
@@ -92,7 +87,7 @@ namespace Joblify.Core.Api.Offers
                     return BadRequest();
             }
 
-            bool isSaved = await _offerService.UpdateOffer(offer, offerFromDatabase);
+            bool isSaved = await _offerService.UpdateOffer(updatedOffer, offerFromDatabase);
 
             if (!isSaved)
             {
