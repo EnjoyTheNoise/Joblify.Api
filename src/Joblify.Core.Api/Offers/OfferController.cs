@@ -80,14 +80,14 @@ namespace Joblify.Core.Api.Offers
                 return BadRequest();
             }
 
-            var offerFromDatabase = await _offerService.GetOfferEntity(id);
+            bool doesOfferExist = await _offerService.CheckIfOfferExist(id);
 
-            if (offerFromDatabase is null)
+            if (!doesOfferExist)
             {
                     return BadRequest();
             }
 
-            bool isSaved = await _offerService.UpdateOffer(updatedOffer, offerFromDatabase);
+            bool isSaved = await _offerService.UpdateOffer(updatedOffer, id);
 
             if (!isSaved)
             {

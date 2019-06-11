@@ -112,22 +112,32 @@ namespace Joblify.Core.Offers
 
         public async Task<Offer> GetOfferEntity(int id)
         {
-            var offer = await _unitOfWork.OfferRepository.Entities.Include(x => x.User).Include(x => x.Category).Include(x => x.Trade).FirstOrDefaultAsync(x => x.Id == id);
+            var offer = await _unitOfWork.OfferRepository.Entities
+                .Include(x => x.User)
+                .Include(x => x.Category)
+                .Include(x => x.Trade)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
             return offer;
         }
 
         public async Task<IEnumerable<EditOfferDto>> GetOffersForUser(int id)
         {
-            var offers = await _unitOfWork.OfferRepository.Entities.Where(i => i.UserId == id).ToListAsync();
+            var offers = await _unitOfWork.OfferRepository.Entities
+                .Where(i => i.UserId == id)
+                .ToListAsync();
             var offersToReturn = _mapper.Map<List<Offer>, List<EditOfferDto>>(offers);
             return offersToReturn;
         }
 
-        public async Task <bool> UpdateOffer(EditOfferDto offer, Offer offerFromDatabase)
+        public async Task <bool> UpdateOffer(EditOfferDto offer, int id)
         {
+            var offerFromDatabase = await GetOfferEntity(id);
             _mapper.Map(offer, offerFromDatabase);
-            var category = _unitOfWork.CategoryRepository.Entities.FirstOrDefault(c => c.Name == offer.Category);
-            var trade = _unitOfWork.TradeRepository.Entities.FirstOrDefault(t => t.Name == offer.Trade);
+            var category = _unitOfWork.CategoryRepository.Entities
+                .FirstOrDefault(c => c.Name == offer.Category);
+            var trade = _unitOfWork.TradeRepository.Entities
+                .FirstOrDefault(t => t.Name == offer.Trade);
 
             if (category != null && trade != null)
             {
@@ -138,6 +148,13 @@ namespace Joblify.Core.Offers
             }
 
             return false;
+        }
+
+        public async Task<bool> CheckIfOfferExist(int id)
+        {
+            var offer  = await GetOfferEntity(id);
+
+            return !(offer is null);
         }
     }
 }

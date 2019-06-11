@@ -14,6 +14,7 @@ namespace Joblify.Core.Offers
         Task<GetOfferByIdDto> GetOfferById(int id);
         Task<Offer> GetOfferEntity(int id);
         Task<IEnumerable<EditOfferDto>> GetOffersForUser(int id);
-        Task <bool> UpdateOffer(EditOfferDto offer, Offer offerFromDatabase);
+        Task<bool> CheckIfOfferExist(int id);
+        Task <bool> UpdateOffer(EditOfferDto offer,int id);
     }
 }
