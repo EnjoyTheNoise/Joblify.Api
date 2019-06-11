@@ -73,6 +73,7 @@ namespace Joblify.Core.Api.Offers
         }
 
         [HttpPut("UpdateOffer")]
+        [ValidateModel]
         public async Task<IActionResult> UpdateOffer(int id, [FromBody]EditOfferDto updatedOffer)
         {
             if (updatedOffer is null)
